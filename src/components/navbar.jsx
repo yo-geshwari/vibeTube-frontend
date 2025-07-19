@@ -2,58 +2,67 @@ import { Link } from "react-router-dom";
 
 function Navbar({ register = true, login = true, home = false, logout = false }) {
   return (
-    <nav className=" container relative mx-auto flex w-full items-center justify-between px-5 py-0 text-xl ">
-      <div className="h-20 w-60">
+    <nav className="container mx-auto flex flex-col lg:flex-row items-center justify-between px-4 py-2 text-xl">
+      {/* Logo */}
+      <div className="h-20 w-60 mb-2 lg:mb-0">
         <img
           src="/logo.png"
           alt="VibeTube Logo"
           className="h-full w-full object-contain"
         />
       </div>
-      <div className="flex items-center justify-around">
-        <ul className="mx-3 flex">
-          {home && <li className="mx-3">
+
+      {/* Links */}
+      <ul className="flex flex-wrap justify-center lg:justify-end items-center gap-x-4 gap-y-2 text-center">
+        {home && (
+          <li>
             <Link
               to="/"
-              className="text-l hover:text-[#A0E7E5] transition-colors duration-200"
+              className="hover:text-[#A0E7E5] transition-colors duration-200"
             >
               Home
             </Link>
-          </li>}
-          {logout && <li className="mx-3">
+          </li>
+        )}
+        {logout && (
+          <li>
             <Link
               to="/"
-              className="text-l hover:text-[#A0E7E5] transition-colors duration-200"
+              className="hover:text-[#A0E7E5] transition-colors duration-200"
             >
               Logout
             </Link>
-          </li>}
-          {register && <li className="mx-3">
+          </li>
+        )}
+        {register && (
+          <li>
             <Link
               to="/register"
-              className="text-l hover:text-[#A0E7E5] transition-colors duration-200"
+              className="hover:text-[#A0E7E5] transition-colors duration-200"
             >
               Start Vibin’! Register
             </Link>
-          </li>}
-          {login && <li className="mx-3">
+          </li>
+        )}
+        {login && (
+          <li>
             <Link
               to="/login"
-              className="text-l hover:text-[#A0E7E5] transition-colors duration-200"
+              className="hover:text-[#A0E7E5] transition-colors duration-200"
             >
               Already vibin’? Log in
             </Link>
-          </li>}
-          <li className="mx-3">
-            <Link
-              to="/contact-us"
-              className="text-l hover:text-[#A0E7E5] transition-colors duration-200"
-            >
-              Contact us!
-            </Link>
           </li>
-        </ul>
-      </div>
+        )}
+        <li>
+          <Link
+            to="/contact-us"
+            className="hover:text-[#A0E7E5] transition-colors duration-200"
+          >
+            Contact us!
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 }
