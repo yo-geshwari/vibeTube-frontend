@@ -18,7 +18,7 @@ function Navbar({ register = true, login = true, home = false, logout = false })
           <li>
             <Link
               to="/"
-              className="hover:text-[#A0E7E5] transition-colors duration-200"
+              className="hover:text-[#A0E7E5] transition-colors duration-200 z-20"
             >
               Home
             </Link>
@@ -28,7 +28,7 @@ function Navbar({ register = true, login = true, home = false, logout = false })
           <li>
             <Link
               to="/"
-              className="hover:text-[#A0E7E5] transition-colors duration-200"
+              className="hover:text-[#A0E7E5] transition-colors duration-200 z-20"
             >
               Logout
             </Link>
@@ -38,7 +38,7 @@ function Navbar({ register = true, login = true, home = false, logout = false })
           <li>
             <Link
               to="/register"
-              className="hover:text-[#A0E7E5] transition-colors duration-200"
+              className="hover:text-[#A0E7E5] transition-colors duration-200 z-20"
             >
               Start Vibin’! Register
             </Link>
@@ -48,7 +48,7 @@ function Navbar({ register = true, login = true, home = false, logout = false })
           <li>
             <Link
               to="/login"
-              className="hover:text-[#A0E7E5] transition-colors duration-200"
+              className="hover:text-[#A0E7E5] transition-colors duration-200 z-20"
             >
               Already vibin’? Log in
             </Link>
@@ -57,7 +57,7 @@ function Navbar({ register = true, login = true, home = false, logout = false })
         <li>
           <Link
             to="/contact-us"
-            className="hover:text-[#A0E7E5] transition-colors duration-200"
+            className="hover:text-[#A0E7E5] transition-colors duration-200 z-20"
           >
             Contact us!
           </Link>

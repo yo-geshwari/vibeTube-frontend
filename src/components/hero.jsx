@@ -15,7 +15,7 @@ export default function HeroSection() {
         </div>
 
         {/* Main Content */}
-        <div className="relative z-10 mt-28 lg:mt-28 sm:mt-36 max-w-full lg:max-w-5xl w-full font-Manrope">
+        <div className="relative z-10 mt-24 lg:mt-28 sm:mt-36 max-w-full lg:max-w-5xl w-full font-Manrope">
           <h1 className="text-5xl sm:text-6xl lg:text-8xl text-[#1A1A44] font-extrabold text-center lg:text-left leading-tight">
             vibeTUBE
           </h1>
