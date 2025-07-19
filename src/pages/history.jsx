@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/navbar";
 
 export default function WatchHistory() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const { accessToken } = state || {};
 
@@ -65,7 +66,16 @@ export default function WatchHistory() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {videos.map((video) => (
             <Link
-              to={`/watch/${video._id}`}
+              to={`/player`}
+              onClick={
+                    (e) => {
+                        e.preventDefault();
+                        navigate('/player',{state : {
+                            videoId: video._id,
+                            accessToken
+                        }})
+                    }
+                }
               key={video._id}
               className="group cursor-pointer"
             >

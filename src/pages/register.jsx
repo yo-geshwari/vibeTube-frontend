@@ -75,10 +75,8 @@ export default function Register() {
         data
       );
       console.log(res.data);
-      alert("Registration successful");
     } catch (err) {
       console.error(err);
-      alert("Registration failed");
     }
   };
 
