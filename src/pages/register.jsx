@@ -77,6 +77,7 @@ export default function Register() {
       console.log(res.data);
     } catch (err) {
       console.error(err);
+      alert("All the fields are required.");
     }
   };
 
