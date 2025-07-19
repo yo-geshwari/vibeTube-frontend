@@ -10,7 +10,10 @@ export default function Profile() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  if (!state) return <p className="text-center mt-20 text-lg">Loading...</p>;
+  const navigate = useNavigate();
+
+  if (!state)
+    return <p className="text-center mt-20 text-lg">Loading...</p>;
 
   const {
     coverImage,
@@ -23,7 +26,6 @@ export default function Profile() {
   } = state;
 
   useEffect(() => {
-
     if (userId) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}api/v1/videos/search`, {
@@ -46,142 +48,76 @@ export default function Profile() {
     }
   }, [userId, page]);
 
-  const navigate = useNavigate();
-
-  const handleUploadClick = async () => {
-    let token = accessToken;
-
-    if (!token && refreshToken) {
+  const getValidToken = async () => {
+    if (!accessToken && refreshToken) {
       try {
         const res = await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/refresh-token`,
-          {
-            refreshToken,
-          }
+          { refreshToken }
         );
-        token = res.data.data.accessToken;
+        return res.data.data.accessToken;
       } catch (err) {
         console.error("Token refresh failed:", err);
-        return navigate("/login"); // redirect to login on failure
+        navigate("/login");
+        return null;
       }
     }
+    return accessToken;
+  };
 
-    if (token) {
-      navigate("/upload", {
-        state: {
-          accessToken: token,
-          userId,
-        },
-      });
-    } else {
-      console.error("Failed");
-      navigate("/login"); // fallback
-    }
+  const handleUploadClick = async () => {
+    const token = await getValidToken();
+    if (token) navigate("/upload", { state: { accessToken: token, userId } });
   };
 
   const handleVidClick = async (videoId) => {
-    let token = accessToken;
-
-    if (!token && refreshToken) {
-      try {
-        const res = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/refresh-token`,
-          {
-            refreshToken,
-          }
-        );
-        token = res.data.data.accessToken;
-      } catch (err) {
-        console.error("Token refresh failed:", err);
-        return navigate("/login"); // redirect to login on failure
-      }
-    }
-
-    if (token) {
-      navigate("/player", {
-        state: {
-          videoId,
-          accessToken: token,
-        },
-      });
-    } else {
-      console.error("Failed");
-      navigate("/login"); // fallback
-    }
+    const token = await getValidToken();
+    if (token) navigate("/player", { state: { videoId, accessToken: token } });
   };
 
   const handleWatchHistoryClick = async () => {
-    let token = accessToken;
-
-    if (!token && refreshToken) {
-      try {
-        const res = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/refresh-token`,
-          {
-            refreshToken,
-          }
-        );
-        token = res.data.data.accessToken;
-      } catch (err) {
-        console.error("Token refresh failed:", err);
-        return navigate("/login"); // redirect to login on failure
-      }
-    }
-
-    if (token) {
-      navigate("/history", {
-        state: {
-          accessToken: token,
-          userId,
-        },
-      });
-    } else {
-      console.error("Failed");
-      navigate("/login"); // fallback
-    }
+    const token = await getValidToken();
+    if (token) navigate("/history", { state: { accessToken: token, userId } });
   };
 
   const handleExplore = () => {
-    navigate('/all',{state : {
-        accessToken
-    }});
-  }
+    navigate("/all", { state: { accessToken } });
+  };
 
   return (
     <>
-      <Navbar register={false} login={false} home={true} logout={true}/>
+      <Navbar register={false} login={false} home={true} logout={true} />
       <div className="w-full min-h-screen bg-gray-50">
         <ProfileNav coverImage={coverImage} avatar={avatar} />
 
-        <div className="mt-24 px-8 md:px-20">
-          <div className="bg-white rounded-xl shadow-md p-6 flex justify-between">
+        <div className="mt-24 px-4 sm:px-8 md:px-20">
+          <div className="bg-white rounded-xl shadow-md p-6 flex flex-col lg:flex-row justify-between gap-4">
             <div>
               <h2 className="text-2xl font-bold text-gray-800">{fullName}</h2>
-              <p className="text-gray-500 text-lg">@{username}</p>
+              <p className="text-gray-500 text-lg break-words">@{username}</p>
             </div>
-            <div>
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={handleExplore}
-                className="w-40 mr-4 bg-[#A0E7E5] text-gray py-3 rounded-lg font-semibold hover:bg-[#d8faf9] transition-colors duration-200"
+                className="w-full sm:w-40 bg-[#A0E7E5] text-gray py-3 rounded-lg font-semibold hover:bg-[#d8faf9] transition-colors duration-200"
               >
                 Explore the vibes!
               </button>
               <button
                 onClick={handleUploadClick}
-                className="w-40 mr-4 bg-[#A0E7E5] text-gray py-3 rounded-lg font-semibold hover:bg-[#d8faf9] transition-colors duration-200"
+                className="w-full sm:w-40 bg-[#A0E7E5] text-gray py-3 rounded-lg font-semibold hover:bg-[#d8faf9] transition-colors duration-200"
               >
                 Upload video
               </button>
               <button
                 onClick={handleWatchHistoryClick}
-                className="w-40 bg-[#A0E7E5] text-gray py-3 rounded-lg font-semibold hover:bg-[#d8faf9] transition-colors duration-200"
+                className="w-full sm:w-40 bg-[#A0E7E5] text-gray py-3 rounded-lg font-semibold hover:bg-[#d8faf9] transition-colors duration-200"
               >
                 Watch History
               </button>
             </div>
           </div>
 
-          
           <div className="mt-8 mb-8">
             <h2 className="text-xl font-bold mb-4">Uploaded Videos</h2>
             {videos.length === 0 ? (
@@ -199,15 +135,14 @@ export default function Profile() {
                       alt={video.title}
                       className="w-full h-40 object-cover rounded"
                     />
-                    <h3 className="mt-2 font-medium">{video.title}</h3>
+                    <h3 className="mt-2 font-medium break-words">{video.title}</h3>
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Pagination Buttons */}
             {totalPages > 1 && (
-              <div className="flex justify-center mt-6 space-x-4">
+              <div className="flex justify-center mt-6 space-x-4 flex-wrap">
                 <button
                   onClick={() => setPage((p) => Math.max(p - 1, 1))}
                   disabled={page === 1}
@@ -225,34 +160,8 @@ export default function Profile() {
                 >
                   Next
                 </button>
-
-                <div className="bg-white rounded-xl shadow-md p-6 flex justify-between">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-800">
-                      {fullName}
-                    </h2>
-                    <p className="text-gray-500 text-lg">@{username}</p>
-                  </div>
-                  <div>
-                    <button
-                      onClick={handleUploadClick}
-                      className="w-40 bg-[#A0E7E5] text-gray py-3 rounded-lg font-semibold hover:bg-[#d8faf9] transition-colors duration-200"
-                    >
-                      Upload video
-                    </button>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-md p-6 flex justify-between">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-800">
-                      {fullName}
-                    </h2>
-                    <p className="text-gray-500 text-lg">@{username}</p>
-                  </div>
-                </div>
               </div>
             )}
-            
           </div>
         </div>
       </div>
