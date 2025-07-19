@@ -71,13 +71,13 @@ export default function WatchHistory() {
             >
               <div className="rounded-lg overflow-hidden shadow hover:shadow-md transition">
                 <img
-                  src={video.thumbnail?.url || "/default-thumbnail.jpg"}
+                  src={video.thumbnail || "/default-thumbnail.jpg"}
                   alt={video.title}
                   className="w-full h-48 object-cover"
                 />
                 <div className="flex items-start gap-3 p-3">
                   <img
-                    src={video.owner?.avatar?.url || "/default-avatar.jpg"}
+                    src={video.owner?.avatar || "/default-avatar.jpg"}
                     alt="User Avatar"
                     className="w-10 h-10 rounded-full object-cover"
                   />

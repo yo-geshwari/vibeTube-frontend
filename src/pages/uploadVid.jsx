@@ -86,7 +86,7 @@ export default function UploadVid() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar register={false} login={false} home={true} />
+      <Navbar register={false} login={false} home={true} logout={true}/>
       <div className="flex justify-center items-center px-4 py-10">
         <div className="w-full max-w-5xl bg-white p-6 rounded-xl shadow-lg">
           <h2 className="text-2xl font-semibold text-center mb-6">Upload Video</h2>
