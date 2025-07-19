@@ -51,7 +51,6 @@ export default function LogIn() {
     });
     } catch (err) {
       console.error(err);
-      alert("Login failed");
     }
   };
 
