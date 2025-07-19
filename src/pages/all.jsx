@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 
 export const All = () => {
+  const { state } = useLocation();
+  const {accessToken} = state;
+
+  const navigate = useNavigate();
+
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -41,7 +46,7 @@ export const All = () => {
 
   return (
     <div>
-        <Navbar login={false} register={false} home={true} explore={false}/>
+        <Navbar login={false} register={false} home={true} explore={false} logout={true}/>
     <div className="p-4 max-w-6xl mx-auto">
 
       {loading ? (
@@ -53,7 +58,16 @@ export const All = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {videos.map((video) => (
               <Link
-                to={`/watch/${video._id}`}
+                to={'/player'}
+                onClick={
+                    (e) => {
+                        e.preventDefault();
+                        navigate('/player',{state : {
+                            videoId: video._id,
+                            accessToken
+                        }})
+                    }
+                }
                 key={video._id}
                 className="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"
               >

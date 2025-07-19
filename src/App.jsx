@@ -7,6 +7,7 @@ import UploadVid from './pages/uploadVid';
 import Player from './pages/player';
 import WatchHistory from './pages/history';
 import All from './pages/all'
+import ContactUs from './pages/contactUs'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/player" element={<Player/>}/>
         <Route path="/history" element={<WatchHistory/>}/>
         <Route path="/all" element={<All/>}/>
+        <Route path="/contact-us" element={<ContactUs/>}/>
       </Routes>
     </Router>
   );

@@ -59,7 +59,7 @@ export default function WatchHistory() {
 
   return (
     <>
-      <Navbar login={false} register={false} home={true} />
+      <Navbar login={false} register={false} home={true} logout={true}/>
       <div className="p-4 sm:p-6">
         <h1 className="text-2xl font-semibold mb-4">Watch History</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

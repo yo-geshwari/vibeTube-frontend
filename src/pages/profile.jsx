@@ -17,8 +17,6 @@ export default function Profile() {
     avatar,
     username,
     fullName,
-    SubCount,
-    subscribed,
     userId,
     accessToken,
     refreshToken,
@@ -144,12 +142,14 @@ export default function Profile() {
   };
 
   const handleExplore = () => {
-    navigate('/all');
+    navigate('/all',{state : {
+        accessToken
+    }});
   }
 
   return (
     <>
-      <Navbar register={false} login={false} home={true}/>
+      <Navbar register={false} login={false} home={true} logout={true}/>
       <div className="w-full min-h-screen bg-gray-50">
         <ProfileNav coverImage={coverImage} avatar={avatar} />
 
@@ -181,20 +181,7 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-6 mt-6 flex flex-col md:flex-row gap-6">
-            <div className="flex-1 text-center">
-              <h3 className="text-xl font-semibold text-gray-700">
-                Subscribers
-              </h3>
-              <p className="text-2xl font-bold text-gray-700">{SubCount}</p>
-            </div>
-            <div className="flex-1 text-center">
-              <h3 className="text-xl font-semibold text-gray-700">
-                Subscribed
-              </h3>
-              <p className="text-2xl font-bold text-gray-700">{subscribed}</p>
-            </div>
-          </div>
+          
           <div className="mt-8 mb-8">
             <h2 className="text-xl font-bold mb-4">Uploaded Videos</h2>
             {videos.length === 0 ? (

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Navbar({ register = true, login = true, home = false }) {
+function Navbar({ register = true, login = true, home = false, logout = false }) {
   return (
     <nav className=" container relative mx-auto flex w-full items-center justify-between px-5 py-0 text-xl ">
       <div className="h-20 w-60">
@@ -18,6 +18,14 @@ function Navbar({ register = true, login = true, home = false }) {
               className="text-l hover:text-[#A0E7E5] transition-colors duration-200"
             >
               Home
+            </Link>
+          </li>}
+          {logout && <li className="mx-3">
+            <Link
+              to="/"
+              className="text-l hover:text-[#A0E7E5] transition-colors duration-200"
+            >
+              Logout
             </Link>
           </li>}
           {register && <li className="mx-3">

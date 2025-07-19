@@ -35,7 +35,6 @@ export default function LogIn() {
         }
       );
       console.log(res.data);
-      alert("Login successful");
 
       navigate('/profile', {
       state: {
